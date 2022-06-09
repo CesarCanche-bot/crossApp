@@ -4,7 +4,7 @@ import {View, StyleSheet} from 'react-native';
 
 import {TimerProps} from '../../App';
 
-const DataTimerPicker = [
+/* const DataTimerPicker = [
   '00:20',
   '00:30',
   '00:45',
@@ -13,7 +13,7 @@ const DataTimerPicker = [
   '01:30',
   '01:45',
   '02:00',
-];
+]; */
 
 const Amrap = ({navigation}: TimerProps) => {
   const [minutes] = useState(0.2);
@@ -54,7 +54,7 @@ const Amrap = ({navigation}: TimerProps) => {
       <View style={styles.startTimerContainer}>
         <Pressable
           style={styles.startTimerButton}
-          onPress={() => navigation.push('Timer')}>
+          onPress={() => navigation.navigate('Timer', {interval: 123456})}>
           <Text style={styles.startTimerText}>START TIMER</Text>
         </Pressable>
       </View>
