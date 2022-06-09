@@ -7,13 +7,16 @@ import {
 
 import MainMenu from './views/mainMenu/MainMenu';
 import Amrap from './views/amrap/Amrap';
+import Timer from './views/timer/Timer';
 
 type RootStackParamList = {
   Home: undefined;
   Amrap: undefined;
+  Timer: undefined;
 };
 
-export type AmrapProps = NativeStackScreenProps<RootStackParamList, 'Amrap'>;
+export type MainMenuProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+export type TimerProps = NativeStackScreenProps<RootStackParamList, 'Timer'>;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -31,6 +34,7 @@ const App = () => {
           component={Amrap}
           options={{title: '', headerTransparent: true}}
         />
+        <Stack.Screen name="Timer" component={Timer} />
       </Stack.Navigator>
     </NavigationContainer>
   );

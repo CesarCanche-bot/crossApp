@@ -9,16 +9,16 @@ import {
   ScrollView,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {AmrapProps} from '../../App';
+import {MainMenuProps} from '../../App';
 
-const MainMenu = ({navigation}: AmrapProps) => {
+const MainMenu = ({navigation}: MainMenuProps) => {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
   const handlerB1 = () => {
-    navigation.navigate('Amrap');
+    navigation.push('Amrap');
   };
 
   return (
