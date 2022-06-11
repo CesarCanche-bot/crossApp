@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {Text, Pressable, Modal} from 'react-native';
 import {View, StyleSheet} from 'react-native';
 
+import RoundButton from '../mainMenu/RoundButton';
+
 import {TimerProps} from '../../App';
 
 /* const DataTimerPicker = [
@@ -55,7 +57,7 @@ const Amrap = ({navigation}: TimerProps) => {
         <Pressable
           style={styles.startTimerButton}
           onPress={() => navigation.navigate('Timer', {interval: 123456})}>
-          <Text style={styles.startTimerText}>START TIMER</Text>
+          <RoundButton title="startTimer" color="black" background="#31A9B8" />
         </Pressable>
       </View>
     </View>
@@ -97,7 +99,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'yellow',
   },
   startTimerButton: {
-    backgroundColor: '#31A9B8',
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: '20%',

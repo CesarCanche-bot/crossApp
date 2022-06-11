@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
+import moment from 'moment';
+
 import {TimerProps} from '../../App';
 
 /* const Data = {
@@ -10,10 +12,13 @@ import {TimerProps} from '../../App';
 
 const Timer = ({route}: TimerProps) => {
   const interval = route.params.interval;
-
+  const duration = moment.duration(interval);
+  const centiSeconds = Math.floor(duration.milliseconds() / 10);
   return (
     <View style={styles.mainContainer}>
-      <Text style={styles.timer}>{interval}</Text>
+      <Text style={styles.timer}>
+        {duration.minutes()}:{duration.seconds()}:{centiSeconds}
+      </Text>
     </View>
   );
 };
@@ -29,6 +34,7 @@ const styles = StyleSheet.create({
   timer: {
     color: 'white',
     fontSize: 40,
+    fontWeight: '500',
     backgroundColor: 'red',
   },
 });
