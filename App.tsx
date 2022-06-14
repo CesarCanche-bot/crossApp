@@ -12,7 +12,7 @@ import Timer from './views/timer/Timer';
 type RootStackParamList = {
   Home: undefined;
   Amrap: undefined;
-  Timer: {interval: number};
+  Timer: {interval: number; colorText: string; title: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -34,7 +34,13 @@ const App = () => {
           component={Amrap}
           options={{title: '', headerTransparent: true}}
         />
-        <Stack.Screen name="Timer" component={Timer} />
+        <Stack.Screen
+          name="Timer"
+          component={Timer}
+          options={({route}) => ({
+            title: route.params.title,
+          })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

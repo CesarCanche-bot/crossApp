@@ -10,6 +10,7 @@ interface Props {
 
 const RoundButton = ({title, color, background}: Props) => {
   return (
+    //pendiente como poner el tpuchopacity y la propiedad de onpress como una propiedad
     <View style={[styles.buttonContainer, {backgroundColor: background}]}>
       <Text style={[styles.buttonTitle, {color: color}]}>{title}</Text>
     </View>
@@ -26,5 +27,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  buttonTitle: {fontSize: 25, fontWeight: '500'},
+  buttonTitle: {fontSize: 29, fontWeight: '500'},
 });
