@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 import RoundButton from '../mainMenu/RoundButton';
@@ -12,29 +12,27 @@ import {useState} from 'react';
 //lo de agregar los lapzos sale al minuto 51
 
 const Timer = ({route}: TimerProps) => {
-  const [timer] = useState(new Date().getTime()); //useState(route.params.interval);
+  const [time] = useState(new Date().getTime()); //useState(route.params.interval);
   const colorText = route.params.colorText;
-  const [duration, setDuration] = useState(moment.duration(timer));
+  const [duration, setDuration] = useState(moment.duration(time));
   const [showStop, setShowStop] = useState(false);
-  const [isRunning, setIsRunnig] = useState(false);
+  const [intervalID, setIntervalId] = useState<NodeJS.Timer>();
 
   function StartFunction() {
     setShowStop(true);
-    setIsRunnig(true);
-  }
-
-  useInterval(
-    () => {
-      console.log('se ecjecuta lo del timepo');
+    const newIntervalId = setInterval(() => {
+      console.log('se ecjecuta lo del tiempo');
       setDuration(moment.duration(new Date().getTime()));
-    },
-    isRunning ? 1000 : undefined,
-  );
+    }, 1000);
+    setIntervalId(newIntervalId);
+  }
 
   const PauseFunction = () => {
     setShowStop(false);
+    clearInterval(intervalID);
+    setIntervalId(0);
     console.log('se detiene');
-    setIsRunnig(false);
+    //setIsRunnig(false);
   };
 
   return (
@@ -54,26 +52,6 @@ const Timer = ({route}: TimerProps) => {
     </View>
   );
 };
-
-function useInterval(callback, delay) {
-  const savedCallback = useRef();
-
-  // Remember the latest function.
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  // Set up the interval.
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-    if (delay !== undefined) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
-}
 
 const styles = StyleSheet.create({
   mainContainer: {
