@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 import RoundButton from '../mainMenu/RoundButton';
 
@@ -12,11 +12,12 @@ import {useState} from 'react';
 //lo de agregar los lapzos sale al minuto 51
 
 const Timer = ({route}: TimerProps) => {
-  const [time] = useState(new Date().getTime()); //useState(route.params.interval);
+  const [timeProp] = useState(new Date().getTime()); //useState(route.params.interval);
   const colorText = route.params.colorText;
-  const [duration, setDuration] = useState(moment.duration(time));
+  const [duration, setDuration] = useState(moment.duration(timeProp));
   const [showStop, setShowStop] = useState(false);
   const [intervalID, setIntervalId] = useState<NodeJS.Timer>();
+  const [initialCountDownSeconds] = useState(10);
 
   function StartFunction() {
     setShowStop(true);
@@ -30,13 +31,16 @@ const Timer = ({route}: TimerProps) => {
   const PauseFunction = () => {
     setShowStop(false);
     clearInterval(intervalID);
-    setIntervalId(0);
+    setIntervalId(undefined);
     console.log('se detiene');
     //setIsRunnig(false);
   };
 
   return (
     <View style={styles.mainContainer}>
+      <TouchableOpacity style={styles.tapToStart}>
+        <Text>tap to start</Text>
+      </TouchableOpacity>
       <Text style={{...styles.timer, color: colorText}}>
         {duration.minutes()}:{duration.seconds()}
       </Text>
@@ -61,6 +65,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingTop: 100,
   },
+  tapToStart: {backgroundColor: 'blue', alignItems: 'center', padding: 5},
   startStyle: {width: 60, height: 60},
   pauseStyle: {width: 70, height: 70},
   timer: {
