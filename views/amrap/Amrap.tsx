@@ -9,72 +9,22 @@ import {TimerProps} from '../../App';
 const Data = {
   timer: '01:05:05.33',
   laps: [
-    {timer: 20, label: '20 seconds'},
-    {timer: '00:30', label: 'seconds'},
-    {timer: '00:45', label: 'seconds'},
-    {timer: '1', label: 'minute'},
-    {timer: '1:15', label: 'minutes'},
-    {timer: '1:30', label: 'minutes'},
-    {timer: '1:45', label: 'minutes'},
-    {timer: '2', label: 'minutes'},
-    {timer: '2:10', label: 'minutes'},
-    {timer: '2:30', label: 'minutes'},
-    {timer: '00:02:45', label: 'minutes'},
-    {timer: '00:03:00', label: 'minutes'},
-    {timer: '00:03:30', label: 'minutes'},
-    {timer: '00:04:00', label: 'minutes'},
-    {timer: '00:04:30', label: 'minutes'},
-    {timer: '5', label: 'minutes'},
-    {timer: '00:06:00', label: 'minutes'},
-    {timer: '00:07:00', label: 'minutes'},
-    {timer: '00:08:00', label: 'minutes'},
-    {timer: '00:09:00', label: 'minutes'},
-    {timer: '00:10:00', label: 'minutes'},
-    {timer: '00:11:00', label: 'minutes'},
-    {timer: '00:12:00', label: 'minutes'},
-    {timer: '00:13:00', label: 'minutes'},
-    {timer: '00:14:00', label: 'minutes'},
-    {timer: '00:15:00', label: 'minutes'},
-    {timer: '00:16:00', label: 'minutes'},
-    {timer: '00:17:00', label: 'minutes'},
-    {timer: '00:18:00', label: 'minutes'},
-    {timer: '00:19:00', label: 'minutes'},
-    {timer: '00:20:00', label: 'minutes'},
-    {timer: '00:21:00', label: 'minutes'},
-    {timer: '00:22:00', label: 'minutes'},
-    {timer: '00:23:00', label: 'minutes'},
-    {timer: '00:24:00', label: 'minutes'},
-    {timer: '00:25:00', label: 'minutes'},
-    {timer: '00:26:00', label: 'minutes'},
-    {timer: '00:27:00', label: 'minutes'},
-    {timer: '00:28:00', label: 'minutes'},
-    {timer: '00:29:00', label: 'minutes'},
-    {timer: '00:30:00', label: 'minutes'},
-    {timer: '00:31:00', label: 'minutes'},
-    {timer: '00:32:00', label: 'minutes'},
-    {timer: '00:33:00', label: 'minutes'},
-    {timer: '00:34:00', label: 'minutes'},
-    {timer: '00:35:00', label: 'minutes'},
-    {timer: '00:36:00', label: 'minutes'},
-    {timer: '00:37:00', label: 'minutes'},
-    {timer: '00:38:00', label: 'minutes'},
-    {timer: '00:39:00', label: 'minutes'},
-    {timer: '00:40:00', label: 'minutes'},
-    {timer: '00:41:00', label: 'minutes'},
-    {timer: '00:43:00', label: 'minutes'},
-    {timer: '00:44:00', label: 'minutes'},
-    {timer: '00:45:00', label: 'minutes'},
-    {timer: '00:46:00', label: 'minutes'},
-    {timer: '00:47:00', label: 'minutes'},
-    {timer: '00:48:00', label: 'minutes'},
-    {timer: '00:49:00', label: 'minutes'},
-    {timer: '00:50:00', label: 'minutes'},
+    {timer: '00:20', timerNumber: 20, label: 'seconds'},
+    {timer: '00:30', timerNumber: 30, label: 'seconds'},
+    {timer: '00:45', timerNumber: 45, label: 'seconds'},
+    {timer: '1', timerNumber: 1, label: 'minute'},
+    {timer: '1:15', timerNumber: 115, label: 'minutes'},
+    {timer: '1:30', timerNumber: 130, label: 'minutes'},
+    {timer: '1:45', timerNumber: 145, label: 'minutes'},
+    {timer: '2', timerNumber: 2, label: 'minutes'},
+    {timer: '2:10', timerNumber: 210, label: 'minutes'},
+    {timer: '2:30', timerNumber: 230, label: 'minutes'},
   ],
 };
 
 type LapProps = {
   index: Number;
-  interval: {timer: number; label: string};
+  interval: {timer: string; label: string};
   setIndexTimerSelected: Function;
 };
 
@@ -108,7 +58,7 @@ function LapTable({laps, setIndexTimerSelected}: LapTableProps) {
 
 const Amrap = ({navigation}: TimerProps) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [indexTimerSelected, setIndexTimerSelected] = useState(15);
+  const [indexTimerSelected, setIndexTimerSelected] = useState(5);
   console.log(
     'index selecionado',
     indexTimerSelected + ' ' + Data.laps[indexTimerSelected].timer,
@@ -155,7 +105,7 @@ const Amrap = ({navigation}: TimerProps) => {
           style={styles.startTimerButton}
           onPress={() =>
             navigation.navigate('Timer', {
-              interval: Data.laps[indexTimerSelected].timer,
+              interval: Data.laps[indexTimerSelected].timerNumber,
               colorText: '#31A9B8',
               title: 'AMRAP',
             })
