@@ -14,7 +14,7 @@ const Data = {
     {timer: '00:45', timerNumber: 45, label: 'seconds'},
     {timer: '1', timerNumber: 1, label: 'minute'},
     {timer: '1:15', timerNumber: 115, label: 'minutes'},
-    {timer: '1:30', timerNumber: 130, label: 'minutes'},
+    {timer: '1:30', timerNumber: 13000, label: 'minutes'},
     {timer: '1:45', timerNumber: 145, label: 'minutes'},
     {timer: '2', timerNumber: 2, label: 'minutes'},
     {timer: '2:10', timerNumber: 210, label: 'minutes'},
