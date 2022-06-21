@@ -9,21 +9,21 @@ import {TimerProps} from '../../App';
 const Data = {
   timer: '01:05:05.33',
   laps: [
-    {timer: '00:20', timerNumber: 20, label: 'seconds'},
-    {timer: '00:30', timerNumber: 30, label: 'seconds'},
-    {timer: '00:45', timerNumber: 45, label: 'seconds'},
-    {timer: '1', timerNumber: 1, label: 'minute'},
-    {timer: '1:15', timerNumber: 115, label: 'minutes'},
-    {timer: '1:30', timerNumber: 13000, label: 'minutes'},
-    {timer: '1:45', timerNumber: 145, label: 'minutes'},
-    {timer: '2', timerNumber: 2, label: 'minutes'},
-    {timer: '2:10', timerNumber: 210, label: 'minutes'},
-    {timer: '2:30', timerNumber: 230, label: 'minutes'},
+    {timer: '00:20', timerString: 'PT20S', label: 'seconds'},
+    {timer: '00:30', timerString: 'PT30S', label: 'seconds'},
+    {timer: '00:45', timerString: 'PT45S', label: 'seconds'},
+    {timer: '1', timerString: 'PT1M', label: 'minute'},
+    {timer: '1:15', timerString: 'PT1M15S', label: 'minutes'},
+    {timer: '1:30', timerString: 'PT1M30S', label: 'minutes'},
+    {timer: '1:45', timerString: 'PT1M45S', label: 'minutes'},
+    {timer: '2', timerString: 'PT2M', label: 'minutes'},
+    {timer: '2:10', timerString: 'PT2M10S', label: 'minutes'},
+    {timer: '2:30', timerString: 'PT2M30S', label: 'minutes'},
   ],
 };
 
 type LapProps = {
-  index: Number;
+  index: number;
   interval: {timer: string; label: string};
   setIndexTimerSelected: Function;
 };
@@ -46,7 +46,7 @@ function LapTable({laps, setIndexTimerSelected}: LapTableProps) {
     <ScrollView>
       {laps.map((lap, index) => (
         <Lap
-          index={index + 1}
+          index={index}
           interval={lap}
           key={index}
           setIndexTimerSelected={setIndexTimerSelected}
@@ -105,7 +105,7 @@ const Amrap = ({navigation}: TimerProps) => {
           style={styles.startTimerButton}
           onPress={() =>
             navigation.navigate('Timer', {
-              interval: Data.laps[indexTimerSelected].timerNumber,
+              interval: Data.laps[indexTimerSelected].timerString,
               colorText: '#31A9B8',
               title: 'AMRAP',
             })

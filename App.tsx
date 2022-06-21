@@ -12,7 +12,7 @@ import Timer from './views/timer/Timer';
 type RootStackParamList = {
   Home: undefined;
   Amrap: undefined;
-  Timer: {interval: number; colorText: string; title: string};
+  Timer: {interval: string; colorText: string; title: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
