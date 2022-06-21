@@ -43,7 +43,7 @@ type LapTableProps = {
 };
 function LapTable({laps, setIndexTimerSelected}: LapTableProps) {
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       {laps.map((lap, index) => (
         <Lap
           index={index}

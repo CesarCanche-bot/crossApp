@@ -15,6 +15,7 @@ import {TimerProps} from '../../App';
 
 const Timer = ({route}: TimerProps) => {
   const [timeProp] = useState(route.params.interval);
+  const [title] = useState(moment.duration(route.params.interval));
   const colorText = route.params.colorText;
   const [duration, setDuration] = useState<moment.Duration | any>(
     moment.duration(timeProp),
@@ -62,11 +63,16 @@ const Timer = ({route}: TimerProps) => {
 
   //stop verify
   useEffect(() => {
-    if (duration.seconds() === 0) {
+    if (
+      moment.duration(duration).seconds() === 0 &&
+      moment.duration(duration).minutes() === 0 &&
+      moment.duration(duration).hours() === 0
+    ) {
       clearInterval(intervalID);
       setFinished(true);
       setPercent(100);
       console.log('ya termine', percent);
+      console.log('duration minutes ', moment.duration(duration).minutes());
     }
 
     if (isRunning) {
@@ -77,8 +83,11 @@ const Timer = ({route}: TimerProps) => {
               moment.duration(timeProp).asMilliseconds(),
         ),
       );
-      console.log('percent is running', percent);
     }
+    console.log('duration', duration);
+    console.log('duration seconds ', moment.duration(duration).seconds());
+    console.log('duration minutes ', moment.duration(duration).minutes());
+    console.log('duration hours ', moment.duration(duration).hours());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [duration]);
 
@@ -97,52 +106,58 @@ const Timer = ({route}: TimerProps) => {
 
   return (
     <View style={styles.mainContainer}>
+      <Text style={{...styles.title, color: colorText}}>
+        {title.hours()}:{title.minutes()}:{title.seconds()}
+      </Text>
       {showStop ? (
         isRunning ? (
           //temporizador del ejercicio
-          <ProgressCircle
-            percent={percent}
-            radius={140}
-            borderWidth={8}
-            color={colorText}
-            shadowColor="#999"
-            bgColor="black">
-            {!paused ? (
-              finished ? (
-                <View>
-                  <FontAwesomeIcon
-                    icon={faChampagneGlasses}
-                    size={90}
-                    style={{color: colorText}}
-                  />
-                  <Text style={styles.tapToStartText}>You did great</Text>
-                </View>
+          <View style={styles.containerRunning}>
+            <ProgressCircle
+              percent={percent}
+              radius={140}
+              borderWidth={8}
+              color={colorText}
+              shadowColor="#999"
+              bgColor="black">
+              {!paused ? (
+                finished ? (
+                  <View>
+                    <FontAwesomeIcon
+                      icon={faChampagneGlasses}
+                      size={90}
+                      style={{color: colorText}}
+                    />
+                    <Text style={styles.tapToStartText}>You did great</Text>
+                  </View>
+                ) : (
+                  <TouchableOpacity
+                    style={styles.tapToStart}
+                    onPress={pauseFunction}>
+                    <Text style={{...styles.timer, color: colorText}}>
+                      {duration.hours()}:{duration.minutes()}:
+                      {duration.seconds()}
+                    </Text>
+                    <Text style={styles.tapToStartText}>Tap to pause</Text>
+                  </TouchableOpacity>
+                )
               ) : (
                 <TouchableOpacity
                   style={styles.tapToStart}
-                  onPress={pauseFunction}>
-                  <Text style={{...styles.timer, color: colorText}}>
+                  onPress={StartFunction}>
+                  <Text style={{...styles.timerPaused, color: colorText}}>
                     {duration.minutes()}:{duration.seconds()}
                   </Text>
-                  <Text style={styles.tapToStartText}>Tap to pause</Text>
+                  <FontAwesomeIcon
+                    icon={faPlay}
+                    size={50}
+                    style={{color: colorText}}
+                  />
+                  <Text style={styles.tapToStartText}>Tap to resume</Text>
                 </TouchableOpacity>
-              )
-            ) : (
-              <TouchableOpacity
-                style={styles.tapToStart}
-                onPress={StartFunction}>
-                <Text style={{...styles.timerPaused, color: colorText}}>
-                  {duration.minutes()}:{duration.seconds()}
-                </Text>
-                <FontAwesomeIcon
-                  icon={faPlay}
-                  size={50}
-                  style={{color: colorText}}
-                />
-                <Text style={styles.tapToStartText}>Tap to resume</Text>
-              </TouchableOpacity>
-            )}
-          </ProgressCircle>
+              )}
+            </ProgressCircle>
+          </View>
         ) : (
           //conteo inicial en segundos stop
           <ProgressCircle
@@ -196,6 +211,13 @@ const styles = StyleSheet.create({
   timerPaused: {
     fontSize: 20,
     fontWeight: '500',
+  },
+  containerRunning: {
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 60,
+    marginBottom: '15%',
   },
 });
 
