@@ -1,65 +1,59 @@
 import React from 'react';
 import {
+  ImageBackground,
   View,
   Pressable,
   Text,
   StyleSheet,
   SafeAreaView,
-  useColorScheme,
   ScrollView,
 } from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {MainMenuProps} from '../../App';
 
 const MainMenu = ({navigation}: MainMenuProps) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   const handlerB1 = () => {
     navigation.push('Amrap', {colorText: '#31A9B8'});
   };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Text style={styles.title}>WOD timer</Text>
-          <View style={styles.buttonMainMenuContainer}>
-            <Pressable
-              style={{...styles.buttonsMenu, ...styles.buttonsMenuColor1}}
-              onPress={() => handlerB1()}>
-              <Text>AMRAP</Text>
-            </Pressable>
+      <ImageBackground
+        source={require('../../src/img/1.jpg')}
+        style={styles.img}>
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
+          <View>
+            <Text style={styles.title}>WOD</Text>
+            <Text style={styles.titleTimer}>TIMER</Text>
+            <View style={styles.buttonMainMenuContainer}>
+              <Pressable
+                style={{...styles.buttonsMenu, ...styles.buttonsMenuColor1}}
+                onPress={() => handlerB1()}>
+                <Text>AMRAP</Text>
+              </Pressable>
+            </View>
+            <View style={{...styles.buttonsMenu, ...styles.buttonsMenuColor2}}>
+              <Pressable>
+                <Text>FOR TIME</Text>
+              </Pressable>
+            </View>
+            <View style={{...styles.buttonsMenu, ...styles.buttonsMenuColor3}}>
+              <Pressable>
+                <Text>EMONG</Text>
+              </Pressable>
+            </View>
+            <View style={{...styles.buttonsMenu, ...styles.buttonsMenuColor4}}>
+              <Pressable>
+                <Text>TABATA</Text>
+              </Pressable>
+            </View>
+            <View style={{...styles.buttonsMenu, ...styles.buttonsMenuColor5}}>
+              <Pressable>
+                <Text>MIX</Text>
+              </Pressable>
+            </View>
           </View>
-          <View style={{...styles.buttonsMenu, ...styles.buttonsMenuColor2}}>
-            <Pressable>
-              <Text>FOR TIME</Text>
-            </Pressable>
-          </View>
-          <View style={{...styles.buttonsMenu, ...styles.buttonsMenuColor3}}>
-            <Pressable>
-              <Text>EMONG</Text>
-            </Pressable>
-          </View>
-          <View style={{...styles.buttonsMenu, ...styles.buttonsMenuColor4}}>
-            <Pressable>
-              <Text>TABATA</Text>
-            </Pressable>
-          </View>
-          <View style={{...styles.buttonsMenu, ...styles.buttonsMenuColor5}}>
-            <Pressable>
-              <Text>MIX</Text>
-            </Pressable>
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -68,10 +62,18 @@ const styles = StyleSheet.create({
   mainContainer: {height: '100%'},
   title: {
     fontFamily: 'Cochin',
-    fontSize: 35,
-    fontWeight: '600',
-    marginTop: '30%',
+    fontSize: 40,
+    fontWeight: '900',
+    color: 'white',
+    marginTop: '50%',
     textAlign: 'center',
+  },
+  titleTimer: {
+    fontSize: 20,
+    fontWeight: '900',
+    textAlign: 'center',
+    color: 'white',
+    marginBottom: '5%',
   },
   buttonMainMenuContainer: {
     marginTop: '30%',
@@ -100,6 +102,10 @@ const styles = StyleSheet.create({
   },
   buttonsMenuColor5: {
     backgroundColor: '#EC96A4',
+  },
+  img: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });
 

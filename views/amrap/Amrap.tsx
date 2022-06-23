@@ -242,8 +242,13 @@ const styles = StyleSheet.create({
   footerFlatList: {
     height: 220,
   },
-  timerSeleccted: {fontSize: 60, marginBottom: '100%', fontWeight: '800'},
-  ok: {},
+  timerSeleccted: {
+    fontSize: 60,
+    marginBottom: '9%',
+    fontWeight: '800',
+    marginTop: '85%',
+  },
+  ok: {width: 180, height: 60},
 });
 
 export default Amrap;
