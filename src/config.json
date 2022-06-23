@@ -1,4 +1,11 @@
 {
+        "colorsMenuOptions": {
+                "Amrap": "#31A9B8",
+                "ForTime": "#063852",
+                "Emong": "#F0810F",
+                "Tabata": "#9BC01C",
+                "Mix": "#EC96A4"
+        },
         "laps": [
                 {
                         "timer": "00:20",

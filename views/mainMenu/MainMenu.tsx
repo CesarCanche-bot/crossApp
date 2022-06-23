@@ -8,47 +8,71 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
+
 import {MainMenuProps} from '../../App';
+
+import Config from '../../src/config.json';
 
 const MainMenu = ({navigation}: MainMenuProps) => {
   const handlerB1 = () => {
-    navigation.push('Amrap', {colorText: '#31A9B8'});
+    navigation.push('Amrap', {colorText: Config.colorsMenuOptions.Amrap});
   };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
       <ImageBackground
-        source={require('../../src/img/1.jpg')}
+        source={require('../../src/img/3.jpg')}
         style={styles.img}>
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={styles.scrollView}>
           <View>
             <Text style={styles.title}>WOD</Text>
             <Text style={styles.titleTimer}>TIMER</Text>
             <View style={styles.buttonMainMenuContainer}>
               <Pressable
-                style={{...styles.buttonsMenu, ...styles.buttonsMenuColor1}}
+                style={{
+                  ...styles.buttonsMenu,
+                  backgroundColor: Config.colorsMenuOptions.Amrap,
+                }}
                 onPress={() => handlerB1()}>
-                <Text>AMRAP</Text>
+                <Text style={styles.option}>AMRAP</Text>
               </Pressable>
             </View>
-            <View style={{...styles.buttonsMenu, ...styles.buttonsMenuColor2}}>
+            <View
+              style={{
+                ...styles.buttonsMenu,
+                backgroundColor: Config.colorsMenuOptions.ForTime,
+              }}>
               <Pressable>
-                <Text>FOR TIME</Text>
+                <Text style={styles.option}>FOR TIME</Text>
               </Pressable>
             </View>
-            <View style={{...styles.buttonsMenu, ...styles.buttonsMenuColor3}}>
+            <View
+              style={{
+                ...styles.buttonsMenu,
+                backgroundColor: Config.colorsMenuOptions.Emong,
+              }}>
               <Pressable>
-                <Text>EMONG</Text>
+                <Text style={styles.option}>EMONG</Text>
               </Pressable>
             </View>
-            <View style={{...styles.buttonsMenu, ...styles.buttonsMenuColor4}}>
+            <View
+              style={{
+                ...styles.buttonsMenu,
+                backgroundColor: Config.colorsMenuOptions.Tabata,
+              }}>
               <Pressable>
-                <Text>TABATA</Text>
+                <Text style={styles.option}>TABATA</Text>
               </Pressable>
             </View>
-            <View style={{...styles.buttonsMenu, ...styles.buttonsMenuColor5}}>
+            <View
+              style={{
+                ...styles.buttonsMenu,
+                backgroundColor: Config.colorsMenuOptions.Mix,
+              }}>
               <Pressable>
-                <Text>MIX</Text>
+                <Text style={styles.option}>MIX</Text>
               </Pressable>
             </View>
           </View>
@@ -68,6 +92,7 @@ const styles = StyleSheet.create({
     marginTop: '50%',
     textAlign: 'center',
   },
+  scrollView: {backgroundColor: '#000000c0'},
   titleTimer: {
     fontSize: 20,
     fontWeight: '900',
@@ -78,8 +103,9 @@ const styles = StyleSheet.create({
   buttonMainMenuContainer: {
     marginTop: '30%',
   },
+  option: {fontSize: 25, fontWeight: '700'},
   buttonsMenu: {
-    marginBottom: '10%',
+    marginBottom: '5%',
     marginHorizontal: '20%',
     alignItems: 'center',
     justifyContent: 'center',
@@ -87,21 +113,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-  },
-  buttonsMenuColor1: {
-    backgroundColor: '#31A9B8',
-  },
-  buttonsMenuColor2: {
-    backgroundColor: '#063852',
-  },
-  buttonsMenuColor3: {
-    backgroundColor: '#F0810F',
-  },
-  buttonsMenuColor4: {
-    backgroundColor: '#9BC01C',
-  },
-  buttonsMenuColor5: {
-    backgroundColor: '#EC96A4',
   },
   img: {
     flex: 1,
