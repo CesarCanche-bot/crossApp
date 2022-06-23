@@ -6,6 +6,9 @@
                 "Tabata": "#9BC01C",
                 "Mix": "#EC96A4"
         },
+        "transparencyViews": {
+                "code": "#000000c0"
+        },
         "laps": [
                 {
                         "timer": "00:20",

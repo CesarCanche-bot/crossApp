@@ -25,7 +25,7 @@ const MainMenu = ({navigation}: MainMenuProps) => {
         style={styles.img}>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
+          style={{backgroundColor: Config.transparencyViews.code}}>
           <View>
             <Text style={styles.title}>WOD</Text>
             <Text style={styles.titleTimer}>TIMER</Text>
@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
     marginTop: '50%',
     textAlign: 'center',
   },
-  scrollView: {backgroundColor: '#000000c0'},
   titleTimer: {
     fontSize: 20,
     fontWeight: '900',

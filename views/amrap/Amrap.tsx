@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import {Text, Pressable, Modal} from 'react-native';
-import {View, StyleSheet, Animated} from 'react-native';
+import {View, StyleSheet, Animated, ImageBackground} from 'react-native';
 
 import RoundButton from '../mainMenu/RoundButton';
 
 import {AmrapProps} from '../../App';
+
+import Config from '../../src/config.json';
 
 const Data = {
   laps: [
@@ -56,109 +58,130 @@ const Amrap = ({route, navigation}: AmrapProps) => {
 
   return (
     <View style={styles.mainContainer}>
-      <Text style={styles.title}>AMRAP</Text>
-      <View style={styles.contentContainer}>
-        <Text style={styles.contentText}>As many rounds as posible in:</Text>
-        <View style={styles.timerContainer}>
-          <Pressable
-            style={styles.minutesContainer}
-            onPress={() => {
-              setModalVisible(true);
-            }}>
-            <Text style={styles.timerText}>
-              {Data.laps[indexTimerSelected].timer}
+      <ImageBackground
+        source={require('../../src/img/3.jpg')}
+        style={styles.img}>
+        <View
+          style={{
+            ...styles.mainContainer,
+            backgroundColor: Config.transparencyViews.code,
+          }}>
+          <Text style={styles.title}>AMRAP</Text>
+          <View style={styles.contentContainer}>
+            <Text style={styles.contentText}>
+              As many rounds as posible in:
             </Text>
-          </Pressable>
-          <Pressable>
-            <Text style={styles.timerText}>
-              {' '}
-              {Data.laps[indexTimerSelected].label}
-            </Text>
-          </Pressable>
-        </View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => setModalVisible(!modalVisible)}>
-          <View style={styles.centeredModalView}>
-            <Text style={{...styles.timerSeleccted, color: colorText}}>
-              {Data.laps[indexTimerSelected].timer}
-            </Text>
-            <View style={styles.modalView}>
-              <Animated.FlatList
-                contentContainerStyle={styles.flatList}
-                data={Data.laps}
-                keyExtractor={item => item.timerString}
-                // bounces={false}
-                showsVerticalScrollIndicator={false}
-                decelerationRate="fast"
-                snapToInterval={30}
-                onScroll={Animated.event(
-                  [{nativeEvent: {contentOffset: {y: scrollY}}}],
-                  {useNativeDriver: true},
-                )}
-                onMomentumScrollEnd={ev => {
-                  setIndexTimerSelected(
-                    Math.round(ev.nativeEvent.contentOffset.y / 30),
-                  );
-                }}
-                ListFooterComponent={<View style={styles.footerFlatList} />}
-                renderItem={({item, index}) => {
-                  const inputRange = [
-                    (index - 10) * 30,
-                    index * 30,
-                    (index + 1) * 30,
-                  ];
-                  const opacity = scrollY.interpolate({
-                    inputRange,
-                    outputRange: [0.4, 1.2, 0.4],
-                  });
-
-                  const scale = scrollY.interpolate({
-                    inputRange,
-                    outputRange: [0.2, 1.2, 0.2],
-                  });
-                  return (
-                    <Lap
-                      interval={item}
-                      key={item.timerString}
-                      opacity={opacity}
-                      scale={scale}
-                    />
-                  );
-                }}
-              />
+            <View style={styles.timerContainer}>
+              <View style={styles.minutesContainer}>
+                <Pressable
+                  onPress={() => {
+                    setModalVisible(true);
+                  }}>
+                  <Text style={styles.timerText}>
+                    {Data.laps[indexTimerSelected].timer}
+                  </Text>
+                </Pressable>
+              </View>
+              <Pressable>
+                <Text style={styles.timerText}>
+                  {' '}
+                  {Data.laps[indexTimerSelected].label}
+                </Text>
+              </Pressable>
             </View>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => setModalVisible(!modalVisible)}>
+              <View style={styles.centeredModalView}>
+                <Text style={{...styles.timerSeleccted, color: colorText}}>
+                  {Data.laps[indexTimerSelected].timer}
+                </Text>
+                <View style={styles.modalView}>
+                  <Animated.FlatList
+                    contentContainerStyle={styles.flatList}
+                    data={Data.laps}
+                    keyExtractor={item => item.timerString}
+                    // bounces={false}
+                    showsVerticalScrollIndicator={false}
+                    decelerationRate="fast"
+                    snapToInterval={30}
+                    onScroll={Animated.event(
+                      [{nativeEvent: {contentOffset: {y: scrollY}}}],
+                      {useNativeDriver: true},
+                    )}
+                    onMomentumScrollEnd={ev => {
+                      setIndexTimerSelected(
+                        Math.round(ev.nativeEvent.contentOffset.y / 30),
+                      );
+                    }}
+                    ListFooterComponent={<View style={styles.footerFlatList} />}
+                    renderItem={({item, index}) => {
+                      const inputRange = [
+                        (index - 10) * 30,
+                        index * 30,
+                        (index + 1) * 30,
+                      ];
+                      const opacity = scrollY.interpolate({
+                        inputRange,
+                        outputRange: [0.4, 1.2, 0.4],
+                      });
+
+                      const scale = scrollY.interpolate({
+                        inputRange,
+                        outputRange: [0.2, 1.2, 0.2],
+                      });
+                      return (
+                        <Lap
+                          interval={item}
+                          key={item.timerString}
+                          opacity={opacity}
+                          scale={scale}
+                        />
+                      );
+                    }}
+                  />
+                </View>
+                <Pressable
+                  style={styles.startTimerButton}
+                  onPress={() => setModalVisible(false)}>
+                  <View style={styles.ok}>
+                    <RoundButton
+                      title="OK"
+                      color="black"
+                      background="#31A9B8"
+                    />
+                  </View>
+                </Pressable>
+              </View>
+            </Modal>
+          </View>
+          <View style={styles.startTimerContainer}>
             <Pressable
               style={styles.startTimerButton}
-              onPress={() => setModalVisible(false)}>
-              <View style={styles.ok}>
-                <RoundButton title="OK" color="black" background="#31A9B8" />
-              </View>
+              onPress={() =>
+                navigation.navigate('Timer', {
+                  interval: Data.laps[indexTimerSelected].timerString,
+                  colorText: '#31A9B8',
+                  title: 'AMRAP',
+                })
+              }>
+              <RoundButton
+                title="Start Timer"
+                color="black"
+                background="#31A9B8"
+              />
             </Pressable>
           </View>
-        </Modal>
-      </View>
-      <View style={styles.startTimerContainer}>
-        <Pressable
-          style={styles.startTimerButton}
-          onPress={() =>
-            navigation.navigate('Timer', {
-              interval: Data.laps[indexTimerSelected].timerString,
-              colorText: '#31A9B8',
-              title: 'AMRAP',
-            })
-          }>
-          <RoundButton title="Start Timer" color="black" background="#31A9B8" />
-        </Pressable>
-      </View>
+        </View>
+      </ImageBackground>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {marginTop: '40%', backgroundColor: 'white', height: '100%'},
+  mainContainer: {flex: 1},
   contentContainer: {marginTop: '20%'},
   centeredModalView: {
     flex: 1,
@@ -189,7 +212,6 @@ const styles = StyleSheet.create({
     width: '70%',
   },
   timerContainer: {
-    backgroundColor: 'red',
     marginTop: '3%',
     alignItems: 'center',
     textAlign: 'center',
@@ -198,7 +220,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   minutesContainer: {
-    backgroundColor: 'yellow',
+    shadowColor: '#31A9B8',
+    borderRadius: 50,
+    borderColor: 'white',
+    borderWidth: 5,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 50,
+    elevation: 50,
   },
   startTimerButton: {
     height: '90%',
@@ -222,18 +254,19 @@ const styles = StyleSheet.create({
   },
   lapText: {fontSize: 20},
   startTimerText: {fontSize: 40},
-  timerText: {color: 'black', fontSize: 35, fontWeight: '500'},
+  timerText: {color: 'white', fontSize: 35, fontWeight: '500'},
   contentText: {
-    color: 'black',
+    color: 'white',
     fontSize: 25,
     textAlign: 'center',
     fontWeight: '700',
   },
   title: {
-    color: 'black',
+    color: 'white',
     textAlign: 'center',
     fontSize: 50,
     fontWeight: '700',
+    marginTop: '40%',
   },
   flatList: {
     justifyContent: 'center',
@@ -249,6 +282,10 @@ const styles = StyleSheet.create({
     marginTop: '85%',
   },
   ok: {width: 180, height: 60},
+  img: {
+    flex: 1,
+    justifyContent: 'center',
+  },
 });
 
 export default Amrap;
