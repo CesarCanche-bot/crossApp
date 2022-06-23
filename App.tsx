@@ -11,7 +11,7 @@ import Timer from './views/timer/Timer';
 
 type RootStackParamList = {
   Home: undefined;
-  Amrap: undefined;
+  Amrap: {colorText: string};
   Timer: {interval: string; colorText: string; title: string};
 };
 
@@ -19,6 +19,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type MainMenuProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 export type TimerProps = NativeStackScreenProps<RootStackParamList, 'Timer'>;
+export type AmrapProps = NativeStackScreenProps<RootStackParamList, 'Amrap'>;
 
 const App = () => {
   return (

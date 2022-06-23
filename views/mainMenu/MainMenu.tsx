@@ -18,7 +18,7 @@ const MainMenu = ({navigation}: MainMenuProps) => {
   };
 
   const handlerB1 = () => {
-    navigation.push('Amrap');
+    navigation.push('Amrap', {colorText: '#31A9B8'});
   };
 
   return (
