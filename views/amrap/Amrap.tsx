@@ -72,16 +72,15 @@ const Amrap = ({route, navigation}: AmrapProps) => {
               As many rounds as posible in:
             </Text>
             <View style={styles.timerContainer}>
-              <View style={styles.minutesContainer}>
-                <Pressable
-                  onPress={() => {
-                    setModalVisible(true);
-                  }}>
-                  <Text style={styles.timerText}>
-                    {Data.laps[indexTimerSelected].timer}
-                  </Text>
-                </Pressable>
-              </View>
+              <Pressable
+                style={styles.minutesContainer}
+                onPress={() => {
+                  setModalVisible(true);
+                }}>
+                <Text style={styles.timerText}>
+                  {Data.laps[indexTimerSelected].timer}
+                </Text>
+              </Pressable>
               <Pressable>
                 <Text style={styles.timerText}>
                   {' '}
@@ -220,17 +219,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   minutesContainer: {
-    shadowColor: '#31A9B8',
-    borderRadius: 50,
-    borderColor: 'white',
-    borderWidth: 5,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 50,
-    elevation: 50,
+    borderRadius: 10,
+    borderColor: '#31A9B8',
+    borderWidth: 3,
   },
   startTimerButton: {
     height: '90%',
@@ -240,7 +231,7 @@ const styles = StyleSheet.create({
   },
   startTimerContainer: {
     backgroundColor: 'black',
-    marginTop: '70%',
+    marginTop: '30%',
     height: '9%',
   },
   lap: {
@@ -254,12 +245,13 @@ const styles = StyleSheet.create({
   },
   lapText: {fontSize: 20},
   startTimerText: {fontSize: 40},
-  timerText: {color: 'white', fontSize: 35, fontWeight: '500'},
+  timerText: {color: 'white', fontSize: 35, fontWeight: '500', margin: 6},
   contentText: {
     color: 'white',
     fontSize: 25,
     textAlign: 'center',
     fontWeight: '700',
+    marginTop: '12%',
   },
   title: {
     color: 'white',
