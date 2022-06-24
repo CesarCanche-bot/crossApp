@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
 import moment from 'moment';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
@@ -10,6 +16,8 @@ import {
 import ProgressCircle from 'react-native-progress-circle';
 
 import {TimerProps} from '../../App';
+
+import Config from '../../src/config.json';
 
 //lo de agregar los lapzos sale al minuto 51
 
@@ -106,97 +114,111 @@ const Timer = ({route}: TimerProps) => {
 
   return (
     <View style={styles.mainContainer}>
-      <Text style={{...styles.title, color: colorText}}>
-        {title.hours()}:{title.minutes()}:{title.seconds()}
-      </Text>
-      {showStop ? (
-        isRunning ? (
-          //temporizador del ejercicio
-          <View style={styles.containerRunning}>
-            <ProgressCircle
-              percent={percent}
-              radius={140}
-              borderWidth={8}
-              color={colorText}
-              shadowColor="#999"
-              bgColor="black">
-              {!paused ? (
-                finished ? (
-                  <View>
-                    <FontAwesomeIcon
-                      icon={faChampagneGlasses}
-                      size={90}
-                      style={{color: colorText}}
-                    />
-                    <Text style={styles.tapToStartText}>You did great</Text>
-                  </View>
-                ) : (
+      <ImageBackground
+        source={require('../../src/img/3.jpg')}
+        style={styles.img}>
+        <View
+          style={{
+            ...styles.mainContainer,
+            backgroundColor: Config.transparencyViews.code,
+          }}>
+          <Text style={{...styles.title, color: colorText}}>
+            {title.hours()}:{title.minutes()}:{title.seconds()}
+          </Text>
+          {showStop ? (
+            isRunning ? (
+              //temporizador del ejercicio
+              <View style={styles.containerRunning}>
+                <ProgressCircle
+                  percent={percent}
+                  radius={140}
+                  borderWidth={8}
+                  color={colorText}
+                  shadowColor="#999"
+                  bgColor="black">
+                  {!paused ? (
+                    finished ? (
+                      <View>
+                        <FontAwesomeIcon
+                          icon={faChampagneGlasses}
+                          size={90}
+                          style={{color: colorText}}
+                        />
+                        <Text style={styles.tapToStartText}>You did great</Text>
+                      </View>
+                    ) : (
+                      <TouchableOpacity
+                        style={styles.tapToStart}
+                        onPress={pauseFunction}>
+                        <Text style={{...styles.timer, color: colorText}}>
+                          {duration.hours()}:{duration.minutes()}:
+                          {duration.seconds()}
+                        </Text>
+                        <Text style={styles.tapToStartText}>Tap to pause</Text>
+                      </TouchableOpacity>
+                    )
+                  ) : (
+                    <TouchableOpacity
+                      style={styles.tapToStart}
+                      onPress={StartFunction}>
+                      <Text style={{...styles.timerPaused, color: colorText}}>
+                        {duration.minutes()}:{duration.seconds()}
+                      </Text>
+                      <FontAwesomeIcon
+                        icon={faPlay}
+                        size={50}
+                        style={{color: colorText}}
+                      />
+                      <Text style={styles.tapToStartText}>Tap to resume</Text>
+                    </TouchableOpacity>
+                  )}
+                </ProgressCircle>
+              </View>
+            ) : (
+              //conteo inicial en segundos stop
+              <View style={styles.initialSecondsContainer}>
+                <ProgressCircle
+                  percent={percent}
+                  radius={140}
+                  borderWidth={8}
+                  color={colorText}
+                  shadowColor="#999"
+                  bgColor="black">
                   <TouchableOpacity
                     style={styles.tapToStart}
-                    onPress={pauseFunction}>
-                    <Text style={{...styles.timer, color: colorText}}>
-                      {duration.hours()}:{duration.minutes()}:
-                      {duration.seconds()}
+                    onPress={stopFunction}>
+                    <Text
+                      style={{...styles.countDownSeconds, color: colorText}}>
+                      {initialCountDownSeconds}
                     </Text>
-                    <Text style={styles.tapToStartText}>Tap to pause</Text>
+                    <Text style={styles.tapToStartText}>Tap to stop</Text>
                   </TouchableOpacity>
-                )
-              ) : (
-                <TouchableOpacity
-                  style={styles.tapToStart}
-                  onPress={StartFunction}>
-                  <Text style={{...styles.timerPaused, color: colorText}}>
-                    {duration.minutes()}:{duration.seconds()}
-                  </Text>
-                  <FontAwesomeIcon
-                    icon={faPlay}
-                    size={50}
-                    style={{color: colorText}}
-                  />
-                  <Text style={styles.tapToStartText}>Tap to resume</Text>
-                </TouchableOpacity>
-              )}
-            </ProgressCircle>
-          </View>
-        ) : (
-          //conteo inicial en segundos stop
-          <ProgressCircle
-            percent={percent}
-            radius={140}
-            borderWidth={8}
-            color={colorText}
-            shadowColor="#999"
-            bgColor="black">
-            <TouchableOpacity style={styles.tapToStart} onPress={stopFunction}>
-              <Text style={{...styles.countDownSeconds, color: colorText}}>
-                {initialCountDownSeconds}
-              </Text>
-              <Text style={styles.tapToStartText}>Tap to stop</Text>
+                </ProgressCircle>
+              </View>
+            )
+          ) : (
+            //icono de inicio
+            <TouchableOpacity
+              style={styles.tapToStart}
+              onPress={countDownSeconds}>
+              <FontAwesomeIcon
+                icon={faFlagCheckered}
+                size={72}
+                style={{color: colorText}}
+              />
+              <Text style={styles.tapToStartText}>Tap to start</Text>
             </TouchableOpacity>
-          </ProgressCircle>
-        )
-      ) : (
-        //icono de inicio
-        <TouchableOpacity style={styles.tapToStart} onPress={countDownSeconds}>
-          <FontAwesomeIcon
-            icon={faFlagCheckered}
-            size={72}
-            style={{color: colorText}}
-          />
-          <Text style={styles.tapToStartText}>Tap to start</Text>
-        </TouchableOpacity>
-      )}
+          )}
+        </View>
+      </ImageBackground>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {
-    backgroundColor: 'black',
     flex: 1,
-    alignItems: 'center',
-    textAlign: 'center',
-    paddingTop: 100,
+    justifyContent: 'center',
   },
   tapToStart: {alignItems: 'center', padding: 5},
   tapToStartText: {fontSize: 20},
@@ -205,7 +227,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   timer: {
-    fontSize: 40,
+    fontSize: 70,
     fontWeight: '500',
   },
   timerPaused: {
@@ -216,8 +238,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 60,
-    marginBottom: '15%',
+    fontSize: 40,
+    marginBottom: '5%',
+    textAlign: 'center',
+  },
+  img: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  initialSecondsContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
