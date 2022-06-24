@@ -11,243 +11,313 @@
         },
         "laps": [
                 {
-                        "timer": "00:20",
+                        "timer": "00: 20",
+                        "timerString": "PT20S",
                         "label": "seconds"
                 },
                 {
-                        "timer": "00:30",
+                        "timer": "00: 30",
+                        "timerString": "PT30S",
                         "label": "seconds"
                 },
                 {
-                        "timer": "00:45",
+                        "timer": "00: 45",
+                        "timerString": "PT45S",
                         "label": "seconds"
                 },
                 {
                         "timer": "1",
+                        "timerString": "PT1M",
                         "label": "minute"
                 },
                 {
-                        "timer": "1:15",
+                        "timer": "1: 15",
+                        "timerString": "PT1M15S",
                         "label": "minutes"
                 },
                 {
-                        "timer": "1:30",
+                        "timer": "1: 30",
+                        "timerString": "PT1M30S",
                         "label": "minutes"
                 },
                 {
-                        "timer": "1:45",
+                        "timer": "1: 45",
+                        "timerString": "PT1M45S",
                         "label": "minutes"
                 },
                 {
                         "timer": "2",
+                        "timerString": "PT2M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "2:10",
+                        "timer": "2: 10",
+                        "timerString": "PT2M10S",
                         "label": "minutes"
                 },
                 {
-                        "timer": "2:30",
+                        "timer": "2: 30",
+                        "timerString": "PT2M30S",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:02:45",
+                        "timer": "2: 45",
+                        "timerString": "PT2M45S",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:03:00",
+                        "timer": "3",
+                        "timerString": "PT3M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:03:30",
+                        "timer": "3: 30",
+                        "timerString": "PT3M30S",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:04:00",
+                        "timer": "4",
+                        "timerString": "PT4M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:04:30",
+                        "timer": "4: 30",
+                        "timerString": "PT4M30S",
                         "label": "minutes"
                 },
                 {
                         "timer": "5",
+                        "timerString": "PT5M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:06:00",
+                        "timer": "6",
+                        "timerString": "PT6M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:07:00",
+                        "timer": "7",
+                        "timerString": "PT7M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:08:00",
+                        "timer": "8",
+                        "timerString": "PT8M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:09:00",
+                        "timer": "9",
+                        "timerString": "PT9M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:10:00",
+                        "timer": "10",
+                        "timerString": "PT10M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:11:00",
+                        "timer": "11",
+                        "timerString": "PT11M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:12:00",
+                        "timer": "12",
+                        "timerString": "PT12M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:13:00",
+                        "timer": "13",
+                        "timerString": "PT13M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:14:00",
+                        "timer": "14",
+                        "timerString": "PT14M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:15:00",
+                        "timer": "15",
+                        "timerString": "PT15M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:16:00",
+                        "timer": "16",
+                        "timerString": "PT16M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:17:00",
+                        "timer": "17",
+                        "timerString": "PT17M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:18:00",
+                        "timer": "18",
+                        "timerString": "PT18M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:19:00",
+                        "timer": "19",
+                        "timerString": "PT19M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:20:00",
+                        "timer": "20",
+                        "timerString": "PT20M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:21:00",
+                        "timer": "21",
+                        "timerString": "PT21M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:22:00",
+                        "timer": "22",
+                        "timerString": "PT22M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:23:00",
+                        "timer": "23",
+                        "timerString": "PT23M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:24:00",
+                        "timer": "24",
+                        "timerString": "PT24M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:25:00",
+                        "timer": "25",
+                        "timerString": "PT25M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:26:00",
+                        "timer": "26",
+                        "timerString": "PT26M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:27:00",
+                        "timer": "27",
+                        "timerString": "PT27M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:28:00",
+                        "timer": "28",
+                        "timerString": "PT28M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:29:00",
+                        "timer": "29",
+                        "timerString": "PT29M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:30:00",
+                        "timer": "30",
+                        "timerString": "PT30M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:31:00",
+                        "timer": "31",
+                        "timerString": "PT31M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:32:00",
+                        "timer": "32",
+                        "timerString": "PT32M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:33:00",
+                        "timer": "33",
+                        "timerString": "PT33M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:34:00",
+                        "timer": "34",
+                        "timerString": "PT34M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:35:00",
+                        "timer": "35",
+                        "timerString": "PT35M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:36:00",
+                        "timer": "36",
+                        "timerString": "PT36M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:37:00",
+                        "timer": "37",
+                        "timerString": "PT37M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:38:00",
+                        "timer": "38",
+                        "timerString": "PT38M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:39:00",
+                        "timer": "39",
+                        "timerString": "PT39M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:40:00",
+                        "timer": "40",
+                        "timerString": "PT41M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:41:00",
+                        "timer": "42",
+                        "timerString": "PT42M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:43:00",
+                        "timer": "43",
+                        "timerString": "PT43M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:44:00",
+                        "timer": "44",
+                        "timerString": "PT44M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:45:00",
+                        "timer": "45",
+                        "timerString": "PT45M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:46:00",
+                        "timer": "46",
+                        "timerString": "PT46M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:47:00",
+                        "timer": "47",
+                        "timerString": "PT47M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:48:00",
+                        "timer": "48",
+                        "timerString": "PT48M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:49:00",
+                        "timer": "49",
+                        "timerString": "PT49M",
                         "label": "minutes"
                 },
                 {
-                        "timer": "00:50:00",
+                        "timer": "50",
+                        "timerString": "PT50M",
+                        "label": "minutes"
+                },
+                {
+                        "timer": "51",
+                        "timerString": "PT51M",
+                        "label": "minutes"
+                },
+                {
+                        "timer": "52",
+                        "timerString": "PT52M",
                         "label": "minutes"
                 }
         ]

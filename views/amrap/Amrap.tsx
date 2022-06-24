@@ -1,60 +1,18 @@
 import React, {useState} from 'react';
 import {Text, Pressable, Modal} from 'react-native';
-import {View, StyleSheet, Animated, ImageBackground} from 'react-native';
+import {View, StyleSheet, ImageBackground} from 'react-native';
 
 import RoundButton from '../mainMenu/RoundButton';
 
 import {AmrapProps} from '../../App';
+import TimersComponent from '../timer/TimersComponent';
 
 import Config from '../../src/config.json';
-
-const Data = {
-  laps: [
-    {timer: '00:20', timerString: 'PT20S', label: 'seconds'},
-    {timer: '00:30', timerString: 'PT30S', label: 'seconds'},
-    {timer: '00:45', timerString: 'PT45S', label: 'seconds'},
-    {timer: '1', timerString: 'PT1M', label: 'minute'},
-    {timer: '1:15', timerString: 'PT1M15S', label: 'minutes'},
-    {timer: '1:30', timerString: 'PT1M30S', label: 'minutes'},
-    {timer: '1:45', timerString: 'PT1M45S', label: 'minutes'},
-    {timer: '2', timerString: 'PT2M', label: 'minutes'},
-    {timer: '2:10', timerString: 'PT2M10S', label: 'minutes'},
-    {timer: '2:30', timerString: 'PT2M30S', label: 'minutes'},
-    {timer: '11', timerString: 'PT1eM', label: 'minute'},
-    {timer: '11:15', timerString: 'PeT1M15S', label: 'minutes'},
-    {timer: '11:30', timerString: 'PTe1M30S', label: 'minutes'},
-    {timer: '11:45', timerString: 'PT1eM45S', label: 'minutes'},
-    {timer: '22', timerString: 'PT2eM', label: 'minutes'},
-    {timer: '22:10', timerString: 'PeT2M10S', label: 'minutes'},
-    {timer: '22:30', timerString: 'PTe2M30S', label: 'minutes'},
-  ],
-};
-
-type LapProps = {
-  interval: {timer: string; label: string};
-  opacity: Animated.AnimatedInterpolation;
-  scale: Animated.AnimatedInterpolation;
-};
-
-function Lap({interval, opacity, scale}: LapProps) {
-  return (
-    <View style={styles.lap}>
-      <Animated.Text style={[styles.lapText, {opacity, transform: [{scale}]}]}>
-        {interval.timer}
-      </Animated.Text>
-      <Animated.Text style={[styles.lapText, {opacity, transform: [{scale}]}]}>
-        {interval.label}
-      </Animated.Text>
-    </View>
-  );
-}
 
 const Amrap = ({route, navigation}: AmrapProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const colorText = route.params.colorText;
   const [indexTimerSelected, setIndexTimerSelected] = useState<number>(5);
-
-  const scrollY = React.useRef(new Animated.Value(0)).current;
 
   return (
     <View style={styles.mainContainer}>
@@ -78,13 +36,13 @@ const Amrap = ({route, navigation}: AmrapProps) => {
                   setModalVisible(true);
                 }}>
                 <Text style={styles.timerText}>
-                  {Data.laps[indexTimerSelected].timer}
+                  {Config.laps[indexTimerSelected].timer}
                 </Text>
               </Pressable>
               <Pressable>
                 <Text style={styles.timerText}>
                   {' '}
-                  {Data.laps[indexTimerSelected].label}
+                  {Config.laps[indexTimerSelected].label}
                 </Text>
               </Pressable>
             </View>
@@ -95,50 +53,12 @@ const Amrap = ({route, navigation}: AmrapProps) => {
               onRequestClose={() => setModalVisible(!modalVisible)}>
               <View style={styles.centeredModalView}>
                 <Text style={{...styles.timerSeleccted, color: colorText}}>
-                  {Data.laps[indexTimerSelected].timer}
+                  {Config.laps[indexTimerSelected].timer}
                 </Text>
                 <View style={styles.modalView}>
-                  <Animated.FlatList
-                    contentContainerStyle={styles.flatList}
-                    data={Data.laps}
-                    keyExtractor={item => item.timerString}
-                    showsVerticalScrollIndicator={false}
-                    decelerationRate="fast"
-                    snapToInterval={30}
-                    onScroll={Animated.event(
-                      [{nativeEvent: {contentOffset: {y: scrollY}}}],
-                      {useNativeDriver: true},
-                    )}
-                    onMomentumScrollEnd={ev => {
-                      setIndexTimerSelected(
-                        Math.round(ev.nativeEvent.contentOffset.y / 30),
-                      );
-                    }}
-                    ListFooterComponent={<View style={styles.footerFlatList} />}
-                    renderItem={({item, index}) => {
-                      const inputRange = [
-                        (index - 15) * 30,
-                        index * 30,
-                        (index + 20) * 30,
-                      ];
-                      const opacity = scrollY.interpolate({
-                        inputRange,
-                        outputRange: [0.4, 1.2, 0.4],
-                      });
-
-                      const scale = scrollY.interpolate({
-                        inputRange,
-                        outputRange: [0.2, 1.2, 0.2],
-                      });
-                      return (
-                        <Lap
-                          interval={item}
-                          key={item.timerString}
-                          opacity={opacity}
-                          scale={scale}
-                        />
-                      );
-                    }}
+                  <TimersComponent
+                    setIndexTimerSelected={setIndexTimerSelected}
+                    laps={Config.laps}
                   />
                 </View>
                 <Pressable
@@ -160,7 +80,7 @@ const Amrap = ({route, navigation}: AmrapProps) => {
               style={styles.startTimerButton}
               onPress={() =>
                 navigation.navigate('Timer', {
-                  interval: Data.laps[indexTimerSelected].timerString,
+                  interval: Config.laps[indexTimerSelected].timerString,
                   colorText: colorText,
                   title: 'AMRAP',
                 })
@@ -209,6 +129,7 @@ const styles = StyleSheet.create({
     height: '35%',
     width: '70%',
   },
+  timerText: {color: 'white', fontSize: 35, fontWeight: '500', margin: 6},
   timerContainer: {
     marginTop: '3%',
     alignItems: 'center',
@@ -216,6 +137,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     paddingHorizontal: '25%',
     flexDirection: 'row',
+  },
+  contentText: {
+    color: 'white',
+    fontSize: 25,
+    textAlign: 'center',
+    fontWeight: '700',
+    marginTop: '12%',
   },
   minutesContainer: {
     borderRadius: 10,
@@ -237,38 +165,12 @@ const styles = StyleSheet.create({
     marginTop: '30%',
     height: '9%',
   },
-  lap: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    alignContent: 'center',
-    backgroundColor: 'black',
-    width: '70%',
-    height: 30,
-  },
-  lapText: {fontSize: 20},
-  startTimerText: {fontSize: 40},
-  timerText: {color: 'white', fontSize: 35, fontWeight: '500', margin: 6},
-  contentText: {
-    color: 'white',
-    fontSize: 25,
-    textAlign: 'center',
-    fontWeight: '700',
-    marginTop: '12%',
-  },
   title: {
     color: 'white',
     textAlign: 'center',
     fontSize: 50,
     fontWeight: '700',
     marginTop: '40%',
-  },
-  flatList: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  footerFlatList: {
-    height: 220,
   },
   timerSeleccted: {
     fontSize: 60,
