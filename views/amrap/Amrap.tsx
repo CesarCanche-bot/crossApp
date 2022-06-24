@@ -52,7 +52,7 @@ function Lap({interval, opacity, scale}: LapProps) {
 const Amrap = ({route, navigation}: AmrapProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const colorText = route.params.colorText;
-  const [indexTimerSelected, setIndexTimerSelected] = useState(5);
+  const [indexTimerSelected, setIndexTimerSelected] = useState<number>(5);
 
   const scrollY = React.useRef(new Animated.Value(0)).current;
 
@@ -73,7 +73,7 @@ const Amrap = ({route, navigation}: AmrapProps) => {
             </Text>
             <View style={styles.timerContainer}>
               <Pressable
-                style={styles.minutesContainer}
+                style={{...styles.minutesContainer, borderColor: colorText}}
                 onPress={() => {
                   setModalVisible(true);
                 }}>
@@ -102,7 +102,6 @@ const Amrap = ({route, navigation}: AmrapProps) => {
                     contentContainerStyle={styles.flatList}
                     data={Data.laps}
                     keyExtractor={item => item.timerString}
-                    // bounces={false}
                     showsVerticalScrollIndicator={false}
                     decelerationRate="fast"
                     snapToInterval={30}
@@ -118,9 +117,9 @@ const Amrap = ({route, navigation}: AmrapProps) => {
                     ListFooterComponent={<View style={styles.footerFlatList} />}
                     renderItem={({item, index}) => {
                       const inputRange = [
-                        (index - 10) * 30,
+                        (index - 15) * 30,
                         index * 30,
-                        (index + 1) * 30,
+                        (index + 20) * 30,
                       ];
                       const opacity = scrollY.interpolate({
                         inputRange,
@@ -143,12 +142,12 @@ const Amrap = ({route, navigation}: AmrapProps) => {
                   />
                 </View>
                 <Pressable
-                  style={styles.startTimerButton}
-                  onPress={() => setModalVisible(false)}>
+                  style={styles.startTimerButtonModal}
+                  onPress={() => setModalVisible(!modalVisible)}>
                   <View style={styles.ok}>
                     <RoundButton
                       title="OK"
-                      color="black"
+                      color="white"
                       background="#31A9B8"
                     />
                   </View>
@@ -162,14 +161,14 @@ const Amrap = ({route, navigation}: AmrapProps) => {
               onPress={() =>
                 navigation.navigate('Timer', {
                   interval: Data.laps[indexTimerSelected].timerString,
-                  colorText: '#31A9B8',
+                  colorText: colorText,
                   title: 'AMRAP',
                 })
               }>
               <RoundButton
                 title="Start Timer"
-                color="black"
-                background="#31A9B8"
+                color="white"
+                background={colorText}
               />
             </Pressable>
           </View>
@@ -220,11 +219,15 @@ const styles = StyleSheet.create({
   },
   minutesContainer: {
     borderRadius: 10,
-    borderColor: '#31A9B8',
     borderWidth: 3,
   },
   startTimerButton: {
     height: '90%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: '20%',
+  },
+  startTimerButtonModal: {
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: '20%',
@@ -269,9 +272,8 @@ const styles = StyleSheet.create({
   },
   timerSeleccted: {
     fontSize: 60,
-    marginBottom: '9%',
     fontWeight: '800',
-    marginTop: '85%',
+    marginBottom: '85%',
   },
   ok: {width: 180, height: 60},
   img: {

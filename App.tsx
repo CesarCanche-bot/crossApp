@@ -33,13 +33,19 @@ const App = () => {
         <Stack.Screen
           name="Amrap"
           component={Amrap}
-          options={{title: '', headerTransparent: true}}
+          options={{
+            title: '',
+            headerTransparent: true,
+            headerTintColor: '#fff',
+          }}
         />
         <Stack.Screen
           name="Timer"
           component={Timer}
           options={({route}) => ({
             title: route.params.title,
+            headerTransparent: true,
+            headerTintColor: '#fff',
           })}
         />
       </Stack.Navigator>
