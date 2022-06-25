@@ -18,6 +18,10 @@ const MainMenu = ({navigation}: MainMenuProps) => {
     navigation.push('Amrap', {colorText: Config.colorsMenuOptions.Amrap});
   };
 
+  const handlerForTme = () => {
+    navigation.push('ForTime', {colorText: Config.colorsMenuOptions.ForTime});
+  };
+
   return (
     <SafeAreaView style={styles.mainContainer}>
       <ImageBackground
@@ -44,7 +48,7 @@ const MainMenu = ({navigation}: MainMenuProps) => {
                 ...styles.buttonsMenu,
                 backgroundColor: Config.colorsMenuOptions.ForTime,
               }}>
-              <Pressable>
+              <Pressable onPress={() => handlerForTme()}>
                 <Text style={styles.option}>FOR TIME</Text>
               </Pressable>
             </View>
