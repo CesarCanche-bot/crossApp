@@ -22,7 +22,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export type MainMenuProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 export type TimerProps = NativeStackScreenProps<RootStackParamList, 'Timer'>;
 export type AmrapProps = NativeStackScreenProps<RootStackParamList, 'Amrap'>;
-export type ForTime = NativeStackScreenProps<RootStackParamList, 'ForTime'>;
+export type ForTimeProps = NativeStackScreenProps<
+  RootStackParamList,
+  'ForTime'
+>;
 
 const App = () => {
   return (

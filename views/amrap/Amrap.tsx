@@ -48,7 +48,6 @@ const Amrap = ({route, navigation}: AmrapProps) => {
             </View>
             <Modal
               animationType="slide"
-              transparent={true}
               visible={modalVisible}
               onRequestClose={() => setModalVisible(!modalVisible)}>
               <View style={styles.centeredModalView}>
@@ -86,7 +85,7 @@ const Amrap = ({route, navigation}: AmrapProps) => {
                 })
               }>
               <RoundButton
-                title="Start Timer"
+                title="START TIMER"
                 color="white"
                 background={colorText}
               />
@@ -161,7 +160,6 @@ const styles = StyleSheet.create({
     marginHorizontal: '20%',
   },
   startTimerContainer: {
-    backgroundColor: 'black',
     marginTop: '30%',
     height: '9%',
   },
