@@ -43,12 +43,13 @@ const MainMenu = ({navigation}: MainMenuProps) => {
                 <Text style={styles.option}>AMRAP</Text>
               </Pressable>
             </View>
-            <View
-              style={{
-                ...styles.buttonsMenu,
-                backgroundColor: Config.colorsMenuOptions.ForTime,
-              }}>
-              <Pressable onPress={() => handlerForTme()}>
+            <View>
+              <Pressable
+                style={{
+                  ...styles.buttonsMenu,
+                  backgroundColor: Config.colorsMenuOptions.ForTime,
+                }}
+                onPress={() => handlerForTme()}>
                 <Text style={styles.option}>FOR TIME</Text>
               </Pressable>
             </View>

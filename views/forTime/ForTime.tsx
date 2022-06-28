@@ -13,10 +13,10 @@ import {ForTimeProps} from '../../App';
 import RoundButton from '../mainMenu/RoundButton';
 import TimersComponent from '../timer/TimersComponent';
 
-const ForTime = ({route}: ForTimeProps) => {
+const ForTime = ({route, navigation}: ForTimeProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   let colorText = route.params.colorText;
-  const [indexTimerSelected, setIndexTimerSelected] = useState<number>(0);
+  const [indexTimerSelected, setIndexTimerSelected] = useState<number>(1);
   const initialMinute = 4;
   const laps = [...Array(97).keys()].map(i =>
     i === 0
@@ -80,7 +80,15 @@ const ForTime = ({route}: ForTimeProps) => {
           </View>
         </Modal>
         <View style={styles.startTimerContainer}>
-          <Pressable style={styles.startTimerButton}>
+          <Pressable
+            style={styles.startTimerButton}
+            onPress={() =>
+              navigation.navigate('TimerForTime', {
+                interval: laps[indexTimerSelected].timerString,
+                colorText: colorText,
+                title: 'For Time',
+              })
+            }>
             <RoundButton
               title="START TIMER"
               color="white"
@@ -102,9 +110,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: '10%',
-    marginTop: '45%',
+    marginTop: '10%',
   },
-  title: {fontSize: 60, fontWeight: '700', color: '#fff', marginBottom: '4%'},
+  title: {fontSize: 60, fontWeight: '700', color: '#fff', marginBottom: '35%'},
   subtitle: {
     fontSize: 31,
     fontWeight: '700',

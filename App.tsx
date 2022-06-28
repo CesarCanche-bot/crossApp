@@ -9,12 +9,14 @@ import MainMenu from './views/mainMenu/MainMenu';
 import Amrap from './views/amrap/Amrap';
 import Timer from './views/timer/Timer';
 import ForTime from './views/forTime/ForTime';
+import TimerForTime from './views/timer/TimerForTime';
 
 type RootStackParamList = {
   Home: undefined;
   Amrap: {colorText: string};
   Timer: {interval: string; colorText: string; title: string};
   ForTime: {colorText: string};
+  TimerForTime: {interval: string; colorText: string; title: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -25,6 +27,10 @@ export type AmrapProps = NativeStackScreenProps<RootStackParamList, 'Amrap'>;
 export type ForTimeProps = NativeStackScreenProps<
   RootStackParamList,
   'ForTime'
+>;
+export type TimerForTimeProps = NativeStackScreenProps<
+  RootStackParamList,
+  'TimerForTime'
 >;
 
 const App = () => {
@@ -62,6 +68,15 @@ const App = () => {
             headerTransparent: true,
             headerTintColor: '#fff',
           }}
+        />
+        <Stack.Screen
+          name="TimerForTime"
+          component={TimerForTime}
+          options={({route}) => ({
+            title: route.params.title,
+            headerTransparent: true,
+            headerTintColor: '#fff',
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
