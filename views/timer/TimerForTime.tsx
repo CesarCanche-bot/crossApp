@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import {TimerForTimeProps} from '../../App';
 import moment from 'moment';
@@ -15,6 +16,8 @@ import {
   faPlay,
   faChampagneGlasses,
 } from '@fortawesome/free-solid-svg-icons';
+
+import SwipeButton from 'rn-swipe-button';
 
 import Config from '../../src/config.json';
 
@@ -29,17 +32,19 @@ const TimerForTime = ({route}: TimerForTimeProps) => {
   const [finished, setFinished] = useState(false);
   const [intervalID, setIntervalId] = useState<NodeJS.Timer>();
   const [duration, setDuration] = useState<moment.Duration | any>(
-    moment.duration(timeProp),
+    moment.duration(0),
   );
   const [initialCountDownSeconds, setInitialCountDownSeconds] = useState(10);
   const [timeLapsed, setTimeLapsed] = useState<number>(0);
+  const {width, height} = Dimensions.get('window');
+  const [workoutFinished, setWorkoutFinished] = useState(false);
 
   const StartFunction = () => {
     setPaused(false);
     let now = new Date().getTime();
     let idI = setInterval(() => {
       let before = new Date().getTime();
-      setDuration(moment.duration(before - now + timeLapsed).add());
+      setDuration(moment.duration(before - now + timeLapsed));
     }, 1000);
     setIntervalId(idI);
   };
@@ -71,29 +76,31 @@ const TimerForTime = ({route}: TimerForTimeProps) => {
   //stop verify
   useEffect(() => {
     if (
-      moment.duration(duration).seconds() === 0 &&
-      moment.duration(duration).minutes() === 0 &&
-      moment.duration(duration).hours() === 0
+      (moment.duration(duration).seconds() ===
+        moment.duration(timeProp).seconds() &&
+        moment.duration(duration).minutes() ===
+          moment.duration(timeProp).minutes() &&
+        moment.duration(duration).hours() ===
+          moment.duration(timeProp).hours()) ||
+      workoutFinished
     ) {
       clearInterval(intervalID);
       setFinished(true);
       setPercent(100);
-      console.log('ya termine', percent);
-      console.log('duration minutes ', moment.duration(duration).minutes());
     }
 
     if (isRunning) {
-      setPercent(
-        Math.ceil(
-          (moment.duration(duration).asMilliseconds() * 100) /
-            moment.duration(timeProp).asMilliseconds(),
-        ),
-      );
+      if (route.params.interval === 'PT1000M') {
+        setPercent(Math.ceil((moment.duration(duration).seconds() * 100) / 60));
+      } else {
+        setPercent(
+          Math.ceil(
+            (moment.duration(duration).asMilliseconds() * 100) /
+              moment.duration(timeProp).asMilliseconds(),
+          ),
+        );
+      }
     }
-    console.log('duration', duration);
-    console.log('duration seconds ', moment.duration(duration).seconds());
-    console.log('duration minutes ', moment.duration(duration).minutes());
-    console.log('duration hours ', moment.duration(duration).hours());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [duration]);
 
@@ -110,6 +117,19 @@ const TimerForTime = ({route}: TimerForTimeProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialCountDownSeconds]);
 
+  function titleRender() {
+    if (route.params.interval === 'PT1000M') {
+      return (
+        <Text style={{...styles.title, color: colorText}}>No time cap</Text>
+      );
+    } else {
+      return (
+        <Text style={{...styles.title, color: colorText}}>
+          {title.minutes()}:{title.seconds()}
+        </Text>
+      );
+    }
+  }
   return (
     <View style={styles.mainContainer}>
       <ImageBackground
@@ -120,11 +140,9 @@ const TimerForTime = ({route}: TimerForTimeProps) => {
             ...styles.mainContainer,
             backgroundColor: Config.transparencyViews.code,
           }}>
-          <Text style={{...styles.title, color: colorText}}>
-            {title.minutes()}:{title.seconds()}
-          </Text>
+          {titleRender()}
           {showStop ? (
-            isRunning ? (
+            isRunning && !workoutFinished ? (
               <View style={styles.containerRunning}>
                 <ProgressCircle
                   percent={percent}
@@ -170,9 +188,49 @@ const TimerForTime = ({route}: TimerForTimeProps) => {
                     </TouchableOpacity>
                   )}
                 </ProgressCircle>
+
+                {!workoutFinished ? (
+                  <SwipeButton
+                    title="SWIPE TO FINISH"
+                    containerStyles={styles.swipeContainer}
+                    railBorderColor="white"
+                    railBackgroundColor="white"
+                    railFillBackgroundColor={colorText}
+                    railFillBorderColor="green"
+                    titleStyles={styles.titleSwipe}
+                    thumbIconBackgroundColor={colorText}
+                    onSwipeSuccess={() => {
+                      setWorkoutFinished(true);
+                    }}
+                    onSwipeFail={() => {
+                      console.log('fallo');
+                    }}
+                    thumbIconBorderColor={colorText}
+                    height={height * 0.05}
+                    width={width * 0.45}
+                  />
+                ) : (
+                  <></>
+                )}
+              </View>
+            ) : //conteo inicial en segundos stop
+            workoutFinished ? (
+              <View style={styles.initialSecondsContainer}>
+                <FontAwesomeIcon
+                  icon={faChampagneGlasses}
+                  size={90}
+                  style={{color: colorText}}
+                />
+                <Text style={styles.tapToStartText}>You did great</Text>
+                <Text style={styles.tapToStartText}>
+                  {moment.duration(duration).hours() != 0
+                    ? moment.duration(duration).hours() + ':'
+                    : ''}
+                  {moment.duration(duration).minutes() + ':'}
+                  {moment.duration(duration).seconds()}
+                </Text>
               </View>
             ) : (
-              //conteo inicial en segundos stop
               <View style={styles.initialSecondsContainer}>
                 <ProgressCircle
                   percent={percent}
@@ -245,5 +303,12 @@ const styles = StyleSheet.create({
   countDownSeconds: {
     fontSize: 50,
     textAlign: 'center',
+  },
+  swipeContainer: {
+    borderRadius: 15,
+    marginTop: '8%',
+  },
+  titleSwipe: {
+    fontSize: 15,
   },
 });

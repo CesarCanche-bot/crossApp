@@ -22,6 +22,10 @@ const MainMenu = ({navigation}: MainMenuProps) => {
     navigation.push('ForTime', {colorText: Config.colorsMenuOptions.ForTime});
   };
 
+  const handleEmong = () => {
+    navigation.push('Emong', {colorText: Config.colorsMenuOptions.Emong});
+  };
+
   return (
     <SafeAreaView style={styles.mainContainer}>
       <ImageBackground
@@ -53,12 +57,13 @@ const MainMenu = ({navigation}: MainMenuProps) => {
                 <Text style={styles.option}>FOR TIME</Text>
               </Pressable>
             </View>
-            <View
-              style={{
-                ...styles.buttonsMenu,
-                backgroundColor: Config.colorsMenuOptions.Emong,
-              }}>
-              <Pressable>
+            <View>
+              <Pressable
+                style={{
+                  ...styles.buttonsMenu,
+                  backgroundColor: Config.colorsMenuOptions.Emong,
+                }}
+                onPress={() => handleEmong()}>
                 <Text style={styles.option}>EMONG</Text>
               </Pressable>
             </View>

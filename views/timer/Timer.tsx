@@ -79,8 +79,6 @@ const Timer = ({route}: TimerProps) => {
       clearInterval(intervalID);
       setFinished(true);
       setPercent(100);
-      console.log('ya termine', percent);
-      console.log('duration minutes ', moment.duration(duration).minutes());
     }
 
     if (isRunning) {
@@ -92,10 +90,6 @@ const Timer = ({route}: TimerProps) => {
         ),
       );
     }
-    console.log('duration', duration);
-    console.log('duration seconds ', moment.duration(duration).seconds());
-    console.log('duration minutes ', moment.duration(duration).minutes());
-    console.log('duration hours ', moment.duration(duration).hours());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [duration]);
 

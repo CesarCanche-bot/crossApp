@@ -20,7 +20,7 @@ const ForTime = ({route, navigation}: ForTimeProps) => {
   const initialMinute = 4;
   const laps = [...Array(97).keys()].map(i =>
     i === 0
-      ? {timer: 'No time cap', label: '', timerString: 'PT0M'}
+      ? {timer: 'No time cap', label: '', timerString: 'PT1000M'}
       : {
           timer: (initialMinute + i).toString(),
           label: 'minutes',
