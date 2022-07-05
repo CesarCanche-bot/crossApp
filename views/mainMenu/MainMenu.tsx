@@ -23,7 +23,7 @@ const MainMenu = ({navigation}: MainMenuProps) => {
   };
 
   const handleEmong = () => {
-    navigation.push('Emong', {colorText: Config.colorsMenuOptions.Emong});
+    navigation.push('Emon', {colorText: Config.colorsMenuOptions.Emong});
   };
 
   return (
@@ -64,7 +64,7 @@ const MainMenu = ({navigation}: MainMenuProps) => {
                   backgroundColor: Config.colorsMenuOptions.Emong,
                 }}
                 onPress={() => handleEmong()}>
-                <Text style={styles.option}>EMONG</Text>
+                <Text style={styles.option}>EMON</Text>
               </Pressable>
             </View>
             <View

@@ -10,14 +10,14 @@ import Amrap from './views/amrap/Amrap';
 import Timer from './views/timer/Timer';
 import ForTime from './views/forTime/ForTime';
 import TimerForTime from './views/timer/TimerForTime';
-import Emong from './views/emong/Emong';
+import Emon from './views/emong/Emon';
 
 type RootStackParamList = {
   Home: undefined;
   Amrap: {colorText: string};
   Timer: {interval: string; colorText: string; title: string};
   ForTime: {colorText: string};
-  Emong: {colorText: string};
+  Emon: {colorText: string};
   TimerForTime: {interval: string; colorText: string; title: string};
 };
 
@@ -26,7 +26,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export type MainMenuProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 export type TimerProps = NativeStackScreenProps<RootStackParamList, 'Timer'>;
 export type AmrapProps = NativeStackScreenProps<RootStackParamList, 'Amrap'>;
-export type Emong = NativeStackScreenProps<RootStackParamList, 'Emong'>;
+export type EmonProps = NativeStackScreenProps<RootStackParamList, 'Emon'>;
 export type ForTimeProps = NativeStackScreenProps<
   RootStackParamList,
   'ForTime'
@@ -73,8 +73,8 @@ const App = () => {
           }}
         />
         <Stack.Screen
-          name="Emong"
-          component={Emong}
+          name="Emon"
+          component={Emon}
           options={{
             title: '',
             headerTransparent: true,
