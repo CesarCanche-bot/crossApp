@@ -72,9 +72,9 @@ const Timer = ({route}: TimerProps) => {
   //stop verify
   useEffect(() => {
     if (
-      moment.duration(duration).seconds() === 0 &&
-      moment.duration(duration).minutes() === 0 &&
-      moment.duration(duration).hours() === 0
+      moment.duration(duration).seconds() <= 0 &&
+      moment.duration(duration).minutes() <= 0 &&
+      moment.duration(duration).hours() <= 0
     ) {
       clearInterval(intervalID);
       setFinished(true);

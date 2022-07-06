@@ -76,15 +76,16 @@ const TimerForTime = ({route}: TimerForTimeProps) => {
   //stop verify
   useEffect(() => {
     if (
-      (moment.duration(duration).seconds() ===
+      (moment.duration(duration).seconds() >=
         moment.duration(timeProp).seconds() &&
-        moment.duration(duration).minutes() ===
+        moment.duration(duration).minutes() >=
           moment.duration(timeProp).minutes() &&
-        moment.duration(duration).hours() ===
+        moment.duration(duration).hours() >=
           moment.duration(timeProp).hours()) ||
       workoutFinished
     ) {
       clearInterval(intervalID);
+      setWorkoutFinished(true);
       setFinished(true);
       setPercent(100);
     }
