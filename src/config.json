@@ -11,17 +11,17 @@
         },
         "laps": [
                 {
-                        "timer": "00: 20",
+                        "timer": "0:20",
                         "timerString": "PT20S",
                         "label": "seconds"
                 },
                 {
-                        "timer": "00: 30",
+                        "timer": "0:30",
                         "timerString": "PT30S",
                         "label": "seconds"
                 },
                 {
-                        "timer": "00: 45",
+                        "timer": "0:45",
                         "timerString": "PT45S",
                         "label": "seconds"
                 },
@@ -31,17 +31,17 @@
                         "label": "minute"
                 },
                 {
-                        "timer": "1: 15",
+                        "timer": "1:15",
                         "timerString": "PT1M15S",
                         "label": "minutes"
                 },
                 {
-                        "timer": "1: 30",
+                        "timer": "1:30",
                         "timerString": "PT1M30S",
                         "label": "minutes"
                 },
                 {
-                        "timer": "1: 45",
+                        "timer": "1:45",
                         "timerString": "PT1M45S",
                         "label": "minutes"
                 },
@@ -51,17 +51,17 @@
                         "label": "minutes"
                 },
                 {
-                        "timer": "2: 10",
+                        "timer": "2:10",
                         "timerString": "PT2M10S",
                         "label": "minutes"
                 },
                 {
-                        "timer": "2: 30",
+                        "timer": "2:30",
                         "timerString": "PT2M30S",
                         "label": "minutes"
                 },
                 {
-                        "timer": "2: 45",
+                        "timer": "2:45",
                         "timerString": "PT2M45S",
                         "label": "minutes"
                 },
@@ -71,7 +71,7 @@
                         "label": "minutes"
                 },
                 {
-                        "timer": "3: 30",
+                        "timer": "3:30",
                         "timerString": "PT3M30S",
                         "label": "minutes"
                 },
@@ -81,7 +81,7 @@
                         "label": "minutes"
                 },
                 {
-                        "timer": "4: 30",
+                        "timer": "4:30",
                         "timerString": "PT4M30S",
                         "label": "minutes"
                 },

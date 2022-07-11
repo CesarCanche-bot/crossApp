@@ -8,59 +8,21 @@ import {
   Modal,
 } from 'react-native';
 import Config from '../../src/config.json';
-import moment from 'moment';
 
 import {EmonProps} from '../../App';
-import TimersComponent from '../timer/TimersComponent';
 import RoundButton from '../mainMenu/RoundButton';
+import TimersComponent from '../timer/TimersComponent';
 
 const Emon = ({route}: EmonProps) => {
   let colorText = route.params.colorText;
-  const initialSecondsIncress = 15;
-  const initialSecondsIncess2 = 30;
-  const initialSecondsForIncress2 = 180;
-  const initialSecondsIncress3 = 60;
-  const initialSecondsForIncress3 = 300;
   const [indexTimerSelected, setIndexTimerSelected] = useState(3);
-  const laps = [...Array(23).keys()].map(i =>
-    i <= 11
-      ? {
-          timer: (initialSecondsIncress * (i + 1)).toString(),
-          label: 'minutes',
-          timerString: 'PT' + initialSecondsIncress * (i + 1) + 'S',
-        }
-      : i > 11 && i <= 15
-      ? {
-          timer: (
-            initialSecondsIncess2 * (i - 11) +
-            initialSecondsForIncress2
-          ).toString(),
-          label: 'minutes',
-          timerString:
-            'PT' +
-            (initialSecondsIncess2 * (i - 11) + initialSecondsForIncress2) +
-            'S',
-        }
-      : {
-          timer: (
-            initialSecondsIncress3 * (i - 15) +
-            initialSecondsForIncress3
-          ).toString(),
-          label: 'minutes',
-          timerString:
-            'PT' +
-            (initialSecondsIncress3 * (i - 15) + initialSecondsForIncress3) +
-            'S',
-        },
-  );
+  const laps = [...Array(23).keys()].map(i => Config.laps[i]);
+
   const [rounds] = useState(2);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalRounds, setModalRounds] = useState(false);
 
-  console.log('laps', laps);
-  const [title] = useState(
-    moment.duration(laps[indexTimerSelected].timerString),
-  );
+  console.log('index timer', indexTimerSelected);
 
   return (
     <ImageBackground
@@ -73,8 +35,8 @@ const Emon = ({route}: EmonProps) => {
         }}>
         <Text style={styles.title}>EMON</Text>
         <Text style={styles.subTitle}>
-          Every {title.minutes()}:{title.seconds()}{' '}
-          {laps[indexTimerSelected].label}
+          Every {Config.laps[indexTimerSelected].timer}
+          {' minutes'}
           {' for '}
           {rounds}
         </Text>
@@ -87,7 +49,7 @@ const Emon = ({route}: EmonProps) => {
                 ...styles.timeCapText,
                 borderColor: colorText,
               }}>
-              {title.minutes()}:{title.seconds()}
+              {Config.laps[indexTimerSelected].timer}
             </Text>
           </Pressable>
         </View>
@@ -110,7 +72,7 @@ const Emon = ({route}: EmonProps) => {
           onRequestClose={() => setModalVisible(!modalVisible)}>
           <View style={styles.centeredModalView}>
             <Text style={{...styles.timerSeleccted, color: colorText}}>
-              {title.minutes()}:{title.seconds()}
+              {Config.laps[indexTimerSelected].timer}
             </Text>
             <View style={styles.modalView}>
               <TimersComponent
@@ -122,7 +84,11 @@ const Emon = ({route}: EmonProps) => {
               style={styles.selectTimerButtonModal}
               onPress={() => setModalVisible(!modalVisible)}>
               <View style={styles.ok}>
-                <RoundButton title="OK" color="white" background="#31A9B8" />
+                <RoundButton
+                  title="OK"
+                  color="white"
+                  background={Config.colorsMenuOptions.Emong}
+                />
               </View>
             </Pressable>
           </View>
