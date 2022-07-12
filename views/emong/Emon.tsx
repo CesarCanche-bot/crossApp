@@ -12,13 +12,16 @@ import Config from '../../src/config.json';
 import {EmonProps} from '../../App';
 import RoundButton from '../mainMenu/RoundButton';
 import TimersComponent from '../timer/TimersComponent';
+import RoundsSelector from './RoundsSelector';
 
 const Emon = ({route}: EmonProps) => {
   let colorText = route.params.colorText;
   const [indexTimerSelected, setIndexTimerSelected] = useState(3);
   const laps = [...Array(23).keys()].map(i => Config.laps[i]);
+  const rounds = [...Array(12).keys()];
+  console.log('rounds ', rounds);
 
-  const [rounds] = useState(2);
+  const [round, setRound] = useState(3);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalRounds, setModalRounds] = useState(false);
 
@@ -38,7 +41,7 @@ const Emon = ({route}: EmonProps) => {
           Every {Config.laps[indexTimerSelected].timer}
           {' minutes'}
           {' for '}
-          {rounds}
+          {rounds[round] + 1}
         </Text>
         <View style={styles.selectTimes}>
           <Text style={styles.timeCapText}>Every</Text>
@@ -62,7 +65,7 @@ const Emon = ({route}: EmonProps) => {
                 ...styles.timeCapText,
                 borderColor: colorText,
               }}>
-              {rounds}
+              {rounds[round] + 1}X
             </Text>
           </Pressable>
         </View>
@@ -91,6 +94,20 @@ const Emon = ({route}: EmonProps) => {
                 />
               </View>
             </Pressable>
+          </View>
+        </Modal>
+        <Modal
+          animationType="slide"
+          visible={modalRounds}
+          onRequestClose={() => setModalRounds(!modalRounds)}>
+          <View style={styles.centeredModalView}>
+            <Text style={{...styles.timerSeleccted, color: colorText}}>
+              {rounds[round] + 1}
+              {' X'}
+            </Text>
+            <View style={styles.modalView}>
+              <RoundsSelector setRound={setRound} rounds={rounds} />
+            </View>
           </View>
         </Modal>
       </View>
