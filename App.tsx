@@ -11,6 +11,7 @@ import Timer from './views/timer/Timer';
 import ForTime from './views/forTime/ForTime';
 import TimerForTime from './views/timer/TimerForTime';
 import Emon from './views/emong/Emon';
+import TimerEmon from './views/emong/TimerEmon';
 
 type RootStackParamList = {
   Home: undefined;
@@ -19,6 +20,7 @@ type RootStackParamList = {
   ForTime: {colorText: string};
   Emon: {colorText: string};
   TimerForTime: {interval: string; colorText: string; title: string};
+  TimerEmon: {interval: string; colorText: string; title: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -34,6 +36,10 @@ export type ForTimeProps = NativeStackScreenProps<
 export type TimerForTimeProps = NativeStackScreenProps<
   RootStackParamList,
   'TimerForTime'
+>;
+export type TimerEmonProps = NativeStackScreenProps<
+  RootStackParamList,
+  'TimerEmon'
 >;
 
 const App = () => {
@@ -84,6 +90,15 @@ const App = () => {
         <Stack.Screen
           name="TimerForTime"
           component={TimerForTime}
+          options={({route}) => ({
+            title: route.params.title,
+            headerTransparent: true,
+            headerTintColor: '#fff',
+          })}
+        />
+        <Stack.Screen
+          name="TimerEmon"
+          component={TimerEmon}
           options={({route}) => ({
             title: route.params.title,
             headerTransparent: true,
