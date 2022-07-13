@@ -124,7 +124,8 @@ const Emon = ({route, navigation}: EmonProps) => {
               style={styles.startTimerButton}
               onPress={() =>
                 navigation.navigate('TimerEmon', {
-                  interval: laps[indexTimerSelected].timer,
+                  interval: laps[indexTimerSelected].timerString,
+                  round: round,
                   colorText: colorText,
                   title: 'EMON',
                 })

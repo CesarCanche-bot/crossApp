@@ -20,7 +20,12 @@ type RootStackParamList = {
   ForTime: {colorText: string};
   Emon: {colorText: string};
   TimerForTime: {interval: string; colorText: string; title: string};
-  TimerEmon: {interval: string; colorText: string; title: string};
+  TimerEmon: {
+    interval: string;
+    round: number;
+    colorText: string;
+    title: string;
+  };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
