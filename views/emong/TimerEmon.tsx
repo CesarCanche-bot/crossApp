@@ -18,13 +18,18 @@ import {TimerEmonProps} from '../../App';
 import Config from '../../src/config.json';
 
 const TimerEmon = ({route}: TimerEmonProps) => {
-  const [timeProp] = useState(route.params.interval);
+  let timeProp = route.params.interval;
   const [round] = useState(route.params.round);
   const [roundCount, setRoundCount] = useState(1);
   const colorText = route.params.colorText;
   const [duration, setDuration] = useState<moment.Duration | any>(
     moment.duration(timeProp),
   );
+  let durationLapsed = moment.duration(timeProp);
+  const [durationTotal, setDurationTotal] = useState<moment.Duration | any>(
+    moment.duration(timeProp),
+  );
+  let c = moment.duration(timeProp);
 
   const [showStop, setShowStop] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
@@ -33,7 +38,7 @@ const TimerEmon = ({route}: TimerEmonProps) => {
   const [finished, setFinished] = useState(false);
   const [intervalID, setIntervalId] = useState<NodeJS.Timer>();
   const [initialCountDownSeconds, setInitialCountDownSeconds] = useState(10);
-  const [now, setNow] = useState(0);
+  //const [now, setNow] = useState(0);
 
   const pauseFunction = () => {
     clearInterval(intervalID);
@@ -51,12 +56,25 @@ const TimerEmon = ({route}: TimerEmonProps) => {
     setIntervalId(newIntervalId);
   };
 
-  const StartFunction = () => {
+  const StartFunction = (now: number) => {
+    console.log('inicio conteo');
+    console.log('recibo +', now);
     setPaused(false);
-    setNow(new Date().getTime());
     let idI = setInterval(() => {
       let before = new Date().getTime();
       setDuration(moment.duration(duration - (before - now)).add(1, 'seconds'));
+      setDurationTotal(
+        moment.duration(durationTotal - (before - now)).add(1, 'seconds'),
+      );
+      console.log('now', now);
+      console.log('before', before);
+      console.log(
+        'pongo',
+        moment
+          .duration(duration - (before - now))
+          .add(1, 'seconds')
+          .seconds(),
+      );
     }, 1000);
     setIntervalId(idI);
   };
@@ -68,26 +86,61 @@ const TimerEmon = ({route}: TimerEmonProps) => {
     setInitialCountDownSeconds(10);
   };
 
+  function addTotalTime() {
+    for (let i = 1; i < round; i++) {
+      c = moment.duration(c).add(timeProp);
+      setDurationTotal(c);
+    }
+    console.log('durationTotal', durationTotal);
+    console.log('c', c);
+  }
+
+  useEffect(() => {
+    addTotalTime();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function reset() {
+    return new Promise(resolve => {
+      durationLapsed = durationLapsed.add(timeProp);
+      setDuration(durationLapsed);
+      setPercent(100);
+      setRoundCount(roundCount + 1);
+      console.log('actualiza', duration);
+      resolve(true);
+    });
+  }
+
   //stop verify
   useEffect(() => {
-    if (
-      moment.duration(duration).seconds() <= 0 &&
-      moment.duration(duration).minutes() <= 0 &&
-      moment.duration(duration).hours() <= 0
-    ) {
-      setRoundCount(roundCount + 1);
-      setDuration(moment.duration(timeProp));
-      setNow(new Date().getTime());
-      setPercent(100);
-    }
+    console.log('durationnnn', duration.seconds());
+    console.log('curren interval id', intervalID);
 
+    async function f1() {
+      var x = await reset();
+      console.log('xxxxxxxxxx', x);
+    }
     if (
       moment.duration(duration).seconds() <= 0 &&
       moment.duration(duration).minutes() <= 0 &&
       moment.duration(duration).hours() <= 0 &&
+      finished === false
+    ) {
+      f1().then(() => {
+        console.log('intervalID despues', intervalID);
+        StartFunction(new Date().getTime());
+      });
+    }
+
+    if (
+      moment.duration(durationTotal).seconds() <= 0 &&
+      moment.duration(durationTotal).minutes() <= 0 &&
+      moment.duration(durationTotal).hours() <= 0 &&
       round === roundCount
     ) {
+      console.log('entro aca2');
       clearInterval(intervalID);
+      setIntervalId(undefined);
       setFinished(true);
       setPercent(100);
     }
@@ -111,7 +164,7 @@ const TimerEmon = ({route}: TimerEmonProps) => {
       setIntervalId(undefined);
       setIsRunning(true);
       setPercent(0);
-      StartFunction();
+      StartFunction(new Date().getTime());
     }
     //for the missing dependencies (variables)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -165,7 +218,7 @@ const TimerEmon = ({route}: TimerEmonProps) => {
                   ) : (
                     <TouchableOpacity
                       style={styles.tapToStart}
-                      onPress={StartFunction}>
+                      onPress={() => StartFunction(new Date().getTime())}>
                       <Text style={{...styles.timerPaused, color: colorText}}>
                         {duration.minutes()}:{duration.seconds()}
                       </Text>
