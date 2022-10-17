@@ -16,7 +16,7 @@ import RoundsSelector from './RoundsSelector';
 
 const Emon = ({route, navigation}: EmonProps) => {
   let colorText = route.params.colorText;
-  const [indexTimerSelected, setIndexTimerSelected] = useState(3);
+  const [indexTimerSelected, setIndexTimerSelected] = useState(0);
   const laps = [...Array(23).keys()].map(i => Config.laps[i]);
   const rounds = [...Array(12).keys()];
 

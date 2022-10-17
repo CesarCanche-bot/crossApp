@@ -20,7 +20,7 @@ import Config from '../../src/config.json';
 const TimerEmon = ({route}: TimerEmonProps) => {
   let timeProp = route.params.interval;
   const [round] = useState(route.params.round);
-  const [roundCount, setRoundCount] = useState(1);
+  const [roundCount, setRoundCount] = useState(0);
   const colorText = route.params.colorText;
   const [duration, setDuration] = useState<moment.Duration | any>(
     moment.duration(timeProp),
@@ -57,24 +57,24 @@ const TimerEmon = ({route}: TimerEmonProps) => {
   };
 
   const StartFunction = (now: number) => {
-    console.log('inicio conteo');
+    console.log(
+      'inicio conteo+++++++++++++++++++++++++++++++++++++++++++++++++++',
+    );
     console.log('recibo +', now);
+    setRoundCount(roundCount + 1);
     setPaused(false);
+    setDuration(durationLapsed);
     let idI = setInterval(() => {
       let before = new Date().getTime();
-      setDuration(moment.duration(duration - (before - now)).add(1, 'seconds'));
+      let set = moment.duration(duration - (before - now)).add(1, 'seconds');
+      setDuration(set);
       setDurationTotal(
         moment.duration(durationTotal - (before - now)).add(1, 'seconds'),
       );
       console.log('now', now);
       console.log('before', before);
-      console.log(
-        'pongo',
-        moment
-          .duration(duration - (before - now))
-          .add(1, 'seconds')
-          .seconds(),
-      );
+      console.log('duration', duration);
+      console.log('pongo', set);
     }, 1000);
     setIntervalId(idI);
   };
@@ -103,10 +103,9 @@ const TimerEmon = ({route}: TimerEmonProps) => {
   function reset() {
     return new Promise(resolve => {
       durationLapsed = durationLapsed.add(timeProp);
-      setDuration(durationLapsed);
       setPercent(100);
-      setRoundCount(roundCount + 1);
-      console.log('actualiza', duration);
+      clearInterval(intervalID);
+      console.log('actualiza termina todo   ', duration);
       resolve(true);
     });
   }
@@ -118,16 +117,17 @@ const TimerEmon = ({route}: TimerEmonProps) => {
 
     async function f1() {
       var x = await reset();
-      console.log('xxxxxxxxxx', x);
+      console.log('xxxxxxxxxx yaaaaaaaaaaaaaaaaa', x);
     }
     if (
       moment.duration(duration).seconds() <= 0 &&
       moment.duration(duration).minutes() <= 0 &&
       moment.duration(duration).hours() <= 0 &&
-      finished === false
+      finished === false &&
+      roundCount < round
     ) {
       f1().then(() => {
-        console.log('intervalID despues', intervalID);
+        console.log('ahi vaaaaaaaaaaaaaade nuevoooooooooooooooooo', intervalID);
         StartFunction(new Date().getTime());
       });
     }
